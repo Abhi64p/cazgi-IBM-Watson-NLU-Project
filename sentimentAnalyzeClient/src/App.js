@@ -10,11 +10,12 @@ class App extends React.Component {
   value of the state, will be returned. The initial input mode
   is set to text
   */
-  state = {innercomp:<textarea rows="4" cols="50" id="textinput"/>,
-            mode: "text",
-          sentimentOutput:[],
-          sentiment:true
-        }
+  state = {
+    innercomp:<textarea rows="4" cols="50" id="textinput"/>,
+    mode: "text",
+    sentimentOutput:[],
+    sentiment:true
+  }
   
   /*
   This method returns the component based on what the input mode is.
@@ -30,11 +31,12 @@ class App extends React.Component {
       mode = "text"
       rows = 4
     }
-      this.setState({innercomp:<textarea rows={rows} cols="50" id="textinput"/>,
+    this.setState({
+      innercomp:<textarea rows={rows} cols="50" id="textinput"/>,
       mode: mode,
       sentimentOutput:[],
       sentiment:true
-      });
+    });
   } 
   
   sendForSentimentAnalysis = () => {
@@ -49,9 +51,9 @@ class App extends React.Component {
         let output = data.label;
         let color = "white"
         switch(output) {
-          case "positive": color = "black";break;
-          case "negative": color = "black";break;
-          default: color = "black";
+          case "positive": color = "green";break;
+          case "negative": color = "red";break;
+          default: color = "yellow";
         }
         output = <div style={{color:color,fontSize:20}}>{output}</div>
         this.setState({sentimentOutput:output});
@@ -59,7 +61,6 @@ class App extends React.Component {
   }
 
   sendForEmotionAnalysis = () => {
-
     this.setState({sentiment:false});
     let url = ".";
     let mode = this.state.mode
@@ -67,11 +68,11 @@ class App extends React.Component {
 
     fetch(url).then((response)=>{
       response.json().then((data)=>{
-      this.setState({sentimentOutput:<EmotionTable emotions={data}/>});
-  })})  ;
+        this.setState({sentimentOutput:<EmotionTable emotions={data}/>});
+      })
+    });
   }
   
-
   render() {
     return (  
       <div className="App">
@@ -86,7 +87,7 @@ class App extends React.Component {
             {this.state.sentimentOutput}
       </div>
     );
-    }
+  }
 }
 
 export default App;
